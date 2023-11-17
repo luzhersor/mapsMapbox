@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import {LngLat, Map} from 'mapbox-gl'
+import { MapServiceComponent } from '../../services/map.service/map.service.component';
 
 
 
@@ -17,12 +18,12 @@ export class ZoomRangePageComponent implements AfterViewInit, OnDestroy {
 
   public zoom: number = 10;
   public map ?: Map;
-  public currentLngLat: LngLat = new LngLat(-122.43, 37.75) //[lng, lat]
+  public currentLngLat: LngLat = new LngLat(-43.5, -22.5) //[lng, lat]
 
   public selectedMapStyle: string = 'streets'; // valor predeterminado
 
 
-  ngAfterViewInit(): void {
+ /*  ngAfterViewInit(): void {
     console.log(this.divMap);
      //Si esto no existe
      if( !this.divMap) throw 'El elemento HTML no fue encontrado';
@@ -37,7 +38,35 @@ export class ZoomRangePageComponent implements AfterViewInit, OnDestroy {
 
       this.mapListeners();
     //throw new Error('Method not implemented.');
+  } */
+
+  constructor(private mapService: MapServiceComponent) {}
+
+  ngAfterViewInit(): void {
+    if (!this.divMap) throw 'El elemento HTML no fue encontrado';
+
+    this.map = new Map({
+      container: this.divMap?.nativeElement,
+      style: `mapbox://styles/mapbox/${this.mapService.selectedMapStyle}-v11`,
+      center: this.currentLngLat,
+      zoom: this.mapService.zoom,
+    });
+
+    this.mapListeners();
+
+    // Registra el mapa en el servicio
+    this.mapService.setMap(this.map);
+
   }
+
+  updateMapState() {
+    if (this.map) {
+      this.mapService.zoom = this.map.getZoom();
+      this.mapService.currentLngLat = this.map.getCenter();
+      this.mapService.changeMapStyle();
+    }
+  }
+
 
   mapListeners(){
     if(!this.map) throw "Mapa no inicializad aqui";

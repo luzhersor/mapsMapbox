@@ -1,21 +1,59 @@
 <!-- <p>side-menu works!</p>
  -->
 
- <div class="map-style-selector">
-  <label for="map-style">Seleccionar estilo de mapa:</label>
-  <select id="map-style" [(ngModel)]="selectedMapStyle" (ngModelChange)="changeMapStyle()">
-    <option value="streets">Calles</option>
-    <option value="light">Claro</option>
-    <!-- Agrega más opciones según tus necesidades -->
-  </select>
+<div class="container">
+  <div class="row">
+    <div class="col-8">
+
+      <div class="map-style-selector">
+        <label for="map-style">Estilo mapa:</label>
+        <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+        <select id="map-style" [(ngModel)]="selectedMapStyle" (ngModelChange)="changeMapStyle()">
+          <option value="satellite-streets">Satellite-streets</option>
+          <option value="streets">Calles</option>
+          <option value="light">Claro</option>
+          <option value="outdoors">Outdoors</option>
+          <option value="dark">Dark</option>
+
+          <!-- Agrega más opciones según tus necesidades -->
+        </select>
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+<!--   <div class="row">
+    <div class="col-8">
+      <div class="map-style-selector">
+        <label for="map-style">Estilo mapa:</label>
+        <div class="btn-group">
+          <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            {{ selectedMapStyle }}
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" (click)="handleMapStyleChange('streets', $event)">Calles</a>
+            <a class="dropdown-item" (click)="handleMapStyleChange('light', $event)">Claro</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="row mt-3">
+    <ul class="list-group">
+      <li *ngFor="let item of menuItems" [routerLink]="[item.route]" routerLinkActive="active" class="list-group-item">
+        {{item.name}}
+      </li>
+    </ul>
+  </div>
+
 </div>
 
 
-<ul class="list-group">
-  <li *ngFor="let item of menuItems"
-  [routerLink]="[item.route]"
-  routerLinkActive="active"
-  class="list-group-item">
-    {{item.name}}
-  </li>
-</ul>
+
+
+
+

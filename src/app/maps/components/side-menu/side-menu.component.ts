@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
+import { MapServiceComponent } from '../../services/map.service/map.service.component';
 
 
 interface MenuItem{
@@ -15,6 +16,8 @@ interface MenuItem{
 export class SideMenuComponent implements OnInit {
 
   public selectedMapStyle: string = 'streets'; // valor predeterminado
+
+  constructor(private mapService: MapServiceComponent) {}
 
 
   //Contiene muchos objetos de tipo MenuItem
@@ -32,16 +35,22 @@ export class SideMenuComponent implements OnInit {
   }
 
   changeMapStyle() {
-    //mapboxgl.accessToken = 'pk.eyJ1IjoibHV6aGVyc29yIiwiYSI6ImNsbno1YTVjcjBjNGwyaXFyc2p3aDUxM2wifQ.b2Jr8KfxgSMUYIN2dquE8g';
 
-    //mapboxgl.accessToken = 'pk.eyJ1IjoibHV6aGVyc29yIiwiYSI6ImNsbno1YTVjcjBjNGwyaXFyc2p3aDUxM2wifQ.b2Jr8KfxgSMUYIN2dquE8g';
+    this.mapService.selectedMapStyle = this.selectedMapStyle;
 
-    const map = new mapboxgl.Map({
+    this.mapService.changeMapStyle();
+
+    /* const map = new mapboxgl.Map({
       container: 'map',
       style: `mapbox://styles/mapbox/${this.selectedMapStyle}-v11`,
       center: [-74.5, 40],
       zoom: 9
-    });
+    }); */
+  }
+
+  handleMapStyleChange(style: string, event: Event) {
+    event.preventDefault();
+    this.changeMapStyle();
   }
 
 }

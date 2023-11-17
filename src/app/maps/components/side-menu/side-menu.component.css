@@ -2,3 +2,31 @@ li{
   cursor: pointer;
   transition: 0.2s all;
 }
+
+/* styles.css o tu archivo de estilos principal
+
+.style-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+ */
+button {
+
+  color: #fff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #fff
+}
+
+i {
+  margin-right: 5px;
+}
+
+
+
+
