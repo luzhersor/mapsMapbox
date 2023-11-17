@@ -1,0 +1,21 @@
+<!-- <p>side-menu works!</p>
+ -->
+
+ <div class="map-style-selector">
+  <label for="map-style">Seleccionar estilo de mapa:</label>
+  <select id="map-style" [(ngModel)]="selectedMapStyle" (ngModelChange)="changeMapStyle()">
+    <option value="streets">Calles</option>
+    <option value="light">Claro</option>
+    <!-- Agrega más opciones según tus necesidades -->
+  </select>
+</div>
+
+
+<ul class="list-group">
+  <li *ngFor="let item of menuItems"
+  [routerLink]="[item.route]"
+  routerLinkActive="active"
+  class="list-group-item">
+    {{item.name}}
+  </li>
+</ul>
